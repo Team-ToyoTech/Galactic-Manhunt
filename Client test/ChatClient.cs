@@ -1,5 +1,4 @@
-﻿using Server_test;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
 
 namespace Client_test

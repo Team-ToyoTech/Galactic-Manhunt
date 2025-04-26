@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Server_test
 {
-
     // 잡힌 도둑들 가두어놓는 감옥 클래스
     public class Prison
     {
