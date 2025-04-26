@@ -63,19 +63,9 @@ namespace Client_test.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap _1 {
+        internal static System.Drawing.Bitmap seedPicture {
             get {
-                object obj = ResourceManager.GetObject("1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap Seed_Icon {
-            get {
-                object obj = ResourceManager.GetObject("Seed_Icon", resourceCulture);
+                object obj = ResourceManager.GetObject("seedPicture", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
