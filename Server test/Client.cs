@@ -29,7 +29,6 @@ namespace Server_test
         {
             this.client = client;
             nickname = "Client" + n.ToString();
-            ship = new Ship(ship.shipType);
             inventory = new Inventory(140,100);
         }
 
@@ -37,7 +36,6 @@ namespace Server_test
         {
             this.client = client;
             nickname = str;
-            ship = new Ship(ship.shipType);
             inventory = new Inventory(140,100);
         }
 
