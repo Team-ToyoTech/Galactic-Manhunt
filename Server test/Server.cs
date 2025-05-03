@@ -18,6 +18,8 @@ namespace Server_test
         public static List<Client> cops;
         public static List<Client> robbers;
         public static Prison prison;
+        Map map;
+        List<Galaxy> galaxyList = new List<Galaxy>();
         public List<Client> Robbers
         {
             get { return robbers; }
@@ -244,7 +246,7 @@ namespace Server_test
                             s.Write(buffer, 0, buffer.Length);
                         }
                     }
-                    else if(message[0] == "9")
+                    else if (message[0] == "9")
                     {
                         client.ship.shipType = (ShipType)int.Parse(message[1]);
                         bool isAllSelected = true;
@@ -375,7 +377,6 @@ namespace Server_test
 
         int CopsCount(int players)
         {
-            // TODO: 인원수당 프로그래밍 정하기
             return players / 2;
         }
 
@@ -433,18 +434,18 @@ namespace Server_test
 
             // 랜덤 지도 생성
 
-            List<Galaxy> galaxyList = new List<Galaxy>();
-            bool[,] visited = new bool[2002, 2002];
+
+            bool[,] visited = new bool[760, 460];
             int maxGalaxy = (clients.Count() > 40) ? 20 : (clients.Count() < 20 ? 11 : clients.Count() / 2); // 최대는 11 ~ 20인데 20 - > 인원 / 2로
             int galaxySize = rand.Next(10, maxGalaxy);
             int prisonLocationGalaxy = rand.Next(0, galaxySize);
 
             for (int i = 0; i < galaxySize; i++)
             {
-                int x = rand.Next(-1000, 1001);
-                int y = rand.Next(-1000, 1001);
-                while (visited[x + 1000, y + 1000] || visited[x + 3 + 1000, y + 3 + 1000] || visited[x + 2 + 1000, y + 2 + 1000] || 
-                    visited[x + 1 + 1000, y + 1 + 1000] || visited[x - 1 + 1000, y - 1 + 1000] || visited[x - 2 + 1000, y - 2 + 1000] || visited[x - 3 + 1000, y - 3 + 1000])
+                int x = rand.Next(-350, 351);
+                int y = rand.Next(-224, 225);
+                while (visited[x + 350, y + 224] || visited[x + 3 + 350, y + 3 + 224] || visited[x + 2 + 350, y + 2 + 224] ||
+                    visited[x + 1 + 350, y + 1 + 224] || visited[x - 1 + 350, y - 1 + 224] || visited[x - 2 + 350, y - 2 + 224] || visited[x - 3 + 350, y - 3 + 224])
                 {
                     x = rand.Next(-1000, 1001);
                     y = rand.Next(-1000, 1001);
@@ -453,12 +454,20 @@ namespace Server_test
                 {
                     visited[x + j + 1000, y + j + 1000] = true;
                 }
-                
+
                 galaxyList.Add(new Galaxy(x, y));
             }
             prison = new Prison(galaxyList[prisonLocationGalaxy]);
 
+            // client 위치 설정
 
+            foreach (var client in clients)
+            {
+                int galaxyNum = rand.Next(0, galaxySize);
+                client.GalaxySelection(galaxyList[galaxyNum].location);
+            }
+
+            map = new(clients);
 
             // 게임 구현 시작
 
@@ -467,17 +476,12 @@ namespace Server_test
 
             // bytes 신호
 
-
-
-
-
             while (turn-- >= 0)
             {
 
-
-                foreach(var clt in clients)
+                foreach (var clt in clients)
                 {
-                    
+
                 }
             }
         }
@@ -488,6 +492,11 @@ namespace Server_test
             {
                 button1.PerformClick(); // 서버 시작 버튼
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            map.Show();
         }
     }
 }

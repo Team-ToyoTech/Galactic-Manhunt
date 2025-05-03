@@ -14,7 +14,7 @@ namespace Server_test
     /* !!      바꿀 때 namespace Server_test 로 변경      !! */
 
     // 함선 클래스
-    class Ship
+    public class Ship
     {
         public ShipType shipType;    // 함선 타입
         public Inventory inventory;  // 인벤토리
@@ -173,7 +173,7 @@ namespace Server_test
     // TODO : 현재 은하, 현재 행성시스템 추가
 
     // 함선 타입
-    enum ShipType
+    public enum ShipType
     {
         none,                // 선택되지 않음
         newbieShip,          // 초급자 전용 함선

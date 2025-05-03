@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Server_test
 {
     // 클라이언트 클래스
-    class Client
+    public class Client
     {
         public TcpClient client;
         public string nickname;
@@ -76,6 +76,15 @@ namespace Server_test
             playerType = type;
         }
 
+        public void GalaxySelection(Vector2 loc)
+        {
+            galaxy = new Galaxy(loc.x,loc.y);
+        }
+        
+        public PlayerType GetType()
+        {
+            return playerType;
+        }
         public enum PlayerType
         {
             robber,

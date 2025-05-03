@@ -66,3 +66,4 @@ C:\Users\ASUS\Source\Repos\Galactic-Manhunt\Server test\bin\Debug\net8.0-windows
 C:\Users\ASUS\Source\Repos\Galactic-Manhunt\Server test\bin\Debug\net8.0-windows\Server.pdb
 C:\Users\ASUS\Source\Repos\Galactic-Manhunt\Server test\obj\Debug\net8.0-windows\Server.genruntimeconfig.cache
 C:\Users\ASUS\Source\Repos\Galactic-Manhunt\Server test\obj\Debug\net8.0-windows\ref\Server.dll
+C:\Users\ASUS\Source\Repos\Galactic-Manhunt\Server test\obj\Debug\net8.0-windows\Server_test.Map.resources

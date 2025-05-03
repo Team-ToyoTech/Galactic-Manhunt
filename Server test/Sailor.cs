@@ -11,7 +11,7 @@ namespace Server_test
     /* !!      바꿀 때 namespace Server_test 로 변경      !! */
 
     // 선원 클래스
-    class Sailor
+    public class Sailor
     {
         SailorType type; // 선원 타입
         public double eatInDay; // 식사량
@@ -43,7 +43,7 @@ namespace Server_test
     }
 
     // 선원 타입
-    enum SailorType
+    public enum SailorType
     {
         normal,
         advanced
