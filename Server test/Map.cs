@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
@@ -15,7 +14,6 @@ using System.Windows.Forms.Design;
 
 namespace Server_test
 {
-
     public struct colors
     {
         public int red;
@@ -24,7 +22,7 @@ namespace Server_test
     }
     public partial class Map : Form
     {
-        public Map(List<Client>clients)
+        public Map(List<Client> clients)
         {
             InitializeComponent();
             int[,] locates = new int[710, 460];
@@ -34,8 +32,6 @@ namespace Server_test
                 locates[(int)vector.x, (int)vector.y]++;
             }
         }
-
-
 
         public colors[] CreateColorBuffer(int width, int height)
         {
@@ -87,6 +83,7 @@ namespace Server_test
 
             return image;
         }
+
         public void LocationChange()
         {
 
@@ -103,7 +100,5 @@ namespace Server_test
 
             pictureBox1.Image = bit;
         }
-
-
     }
 }
