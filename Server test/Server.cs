@@ -467,7 +467,7 @@ namespace Server_test
                 client.GalaxySelection(galaxyList[galaxyNum].location);
             }
 
-            map = new(clients,galaxyList);
+            map = new Map(clients, galaxyList);
 
             // 게임 구현 시작
 
@@ -496,6 +496,7 @@ namespace Server_test
 
         private void button6_Click(object sender, EventArgs e)
         {
+            map = new Map(clients, galaxyList); // 모두 구현한 후에 게임 시작 후 버튼 활성화, 이 줄 삭제
             map.Show();
         }
     }
