@@ -79,6 +79,7 @@ namespace Server_test
         public void GalaxySelection(Vector2 loc)
         {
             galaxy = new Galaxy(loc.x,loc.y);
+            
         }
         
         public PlayerType GetType()

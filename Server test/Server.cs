@@ -447,8 +447,8 @@ namespace Server_test
                 while (visited[x + 350, y + 224] || visited[x + 3 + 350, y + 3 + 224] || visited[x + 2 + 350, y + 2 + 224] ||
                     visited[x + 1 + 350, y + 1 + 224] || visited[x - 1 + 350, y - 1 + 224] || visited[x - 2 + 350, y - 2 + 224] || visited[x - 3 + 350, y - 3 + 224])
                 {
-                    x = rand.Next(-1000, 1001);
-                    y = rand.Next(-1000, 1001);
+                    x = rand.Next(-350, 351);
+                    y = rand.Next(-224, 225);
                 }
                 for (int j = -3; j <= 3; j++)
                 {
@@ -467,7 +467,7 @@ namespace Server_test
                 client.GalaxySelection(galaxyList[galaxyNum].location);
             }
 
-            map = new(clients);
+            map = new(clients,galaxyList);
 
             // 게임 구현 시작
 

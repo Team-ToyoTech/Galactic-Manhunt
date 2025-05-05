@@ -12,6 +12,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Forms.Design;
+using System.Net.Security;
 
 namespace Server_test
 {
@@ -24,15 +25,59 @@ namespace Server_test
     }
     public partial class Map : Form
     {
-        public Map(List<Client>clients)
+        public Map(List<Client>clients, List<Galaxy>galaxies)
         {
             InitializeComponent();
-            int[,] locates = new int[710, 460];
+            int[,] robLocates = new int[710, 460];
+            int[,] copLocates = new int[710, 460];
+            bool[,] visit = new bool[710, 460];
+            List<Tuple<int, int>> galaxyLocates = new List<Tuple<int, int>>();
+
+            foreach(var galaxy in galaxies)
+            {
+                Vector2 vector = galaxy.Location;
+            }
+
             foreach(var client in clients)
             {
                 Vector2 vector = client.galaxy.location;
-                locates[(int)vector.x, (int)vector.y]++;
+                if (client.GetType() == Client.PlayerType.cop) copLocates[(int)vector.x, (int)vector.y]++;
+                else if (client.GetType() == Client.PlayerType.robber) robLocates[(int)vector.x, (int)vector.y]++;
+                if (!visit[(int)vector.x, (int)vector.y])
+                {
+                    visit[(int)vector.x, (int)vector.y] = true;
+                    galaxyLocates.Add(new Tuple<int,int>((int)vector.x, (int)vector.y));
+                }   
             }
+
+            int width = 701;
+            int height = 449;
+
+            colors[] buff = CreateColorBuffer(width, height);
+
+            for(int i = 0; i < galaxyLocates.Count; i++)
+            {
+                int x = galaxyLocates[i].Item1;
+                int y= galaxyLocates[i].Item2;
+                
+
+                if (copLocates[x,y] > 0)
+                {
+                    buff[(x * 4) * height + y].blue = 254;
+                }
+                if (robLocates[x,y] > 0)
+                {
+                    buff[(x * 4) * height + y].red = 254;
+                }
+            }
+
+            Bitmap bit = CreateColorBitMap(
+                width, height, buff);
+
+            
+
+            pictureBox1.Image = bit;
+
         }
 
 
@@ -42,9 +87,9 @@ namespace Server_test
             colors[] buffer = new colors[width * height];
             for (int i = 0; i < width * height; i++)
             {
-                buffer[i].red = 0;
-                buffer[i].green = 0;
-                buffer[i].blue = 0;
+                buffer[i].red = 254;
+                buffer[i].green = 254;
+                buffer[i].blue = 254;
             }
 
             return buffer;
@@ -96,12 +141,8 @@ namespace Server_test
         {
             int width = 701;
             int height = 449;
+            
 
-            colors[] buff = CreateColorBuffer(width, height);
-
-            Bitmap bit = CreateColorBitMap(width, height, buff);
-
-            pictureBox1.Image = bit;
         }
 
 
