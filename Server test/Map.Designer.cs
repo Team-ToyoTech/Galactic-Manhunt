@@ -49,7 +49,6 @@
             button1.TabIndex = 1;
             button1.Text = "재설정";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // Map
             // 

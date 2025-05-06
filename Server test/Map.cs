@@ -32,10 +32,12 @@ namespace Server_test
             int[,] copLocates = new int[710, 460];
             bool[,] visit = new bool[710, 460];
             List<Tuple<int, int>> galaxyLocates = new List<Tuple<int, int>>();
+            List<Tuple<int,int>>galaxyLocates2 = new List<Tuple<int, int>>();
 
             foreach(var galaxy in galaxies)
             {
                 Vector2 vector = galaxy.Location;
+                galaxyLocates2.Add(new Tuple<int,int>((int)vector.x, (int)vector.y));
             }
 
             foreach(var client in clients)
@@ -55,6 +57,16 @@ namespace Server_test
 
             colors[] buff = CreateColorBuffer(width, height);
 
+            foreach (var galaxy in galaxyLocates2)
+            {
+                int x = galaxy.Item1;
+                int y = galaxy.Item2;
+
+                buff[(x * 4) * height + y].blue = 0;
+                buff[(x * 4) * height + y].red = 0;
+                buff[(x * 4) * height + y].green = 0;
+            }
+
             for(int i = 0; i < galaxyLocates.Count; i++)
             {
                 int x = galaxyLocates[i].Item1;
@@ -72,9 +84,7 @@ namespace Server_test
             }
 
             Bitmap bit = CreateColorBitMap(
-                width, height, buff);
-
-            
+                width, height, buff);            
 
             pictureBox1.Image = bit;
 
@@ -137,13 +147,7 @@ namespace Server_test
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int width = 701;
-            int height = 449;
-            
-
-        }
+        
 
 
     }
