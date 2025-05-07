@@ -38,10 +38,10 @@
             button3 = new Button();
             label2 = new Label();
             groupBox1 = new GroupBox();
-            button6 = new Button();
             listBox2 = new ListBox();
             button4 = new Button();
             button5 = new Button();
+            button6 = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -138,16 +138,6 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "접속자";
             // 
-            // button6
-            // 
-            button6.Location = new Point(224, 250);
-            button6.Name = "button6";
-            button6.Size = new Size(48, 29);
-            button6.TabIndex = 11;
-            button6.Text = "지도";
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
-            // 
             // listBox2
             // 
             listBox2.FormattingEnabled = true;
@@ -178,6 +168,17 @@
             button5.TabIndex = 10;
             button5.Text = "게임 종료";
             button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            button6.Location = new Point(224, 250);
+            button6.Name = "button6";
+            button6.Size = new Size(48, 29);
+            button6.TabIndex = 11;
+            button6.Text = "지도";
+            button6.UseVisualStyleBackColor = true;
+            button6.Visible = false;
+            button6.Click += button6_Click;
             // 
             // Server
             // 
