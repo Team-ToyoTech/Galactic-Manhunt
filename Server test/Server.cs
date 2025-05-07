@@ -33,7 +33,6 @@ namespace Server_test
             T = new Thread(() => ServerLoop(1111));
             Tt = new List<Thread>();
             button2.Enabled = false; // 서버 종료
-            button3.Enabled = false; // 전송
             button4.Enabled = false; // 게임 시작
             button5.Enabled = false; // 게임 종료
             isClosing = false;
@@ -51,7 +50,6 @@ namespace Server_test
                 T.Start();
                 button1.Enabled = false; // 서버 시작
                 button2.Enabled = true;  // 서버 종료
-                button3.Enabled = true;  // 전송
                 button4.Enabled = true;  // 게임 시작
                 isServerRun = true;
                 listBox1.Items.Add("Server started");
@@ -299,36 +297,10 @@ namespace Server_test
             }
             button1.Enabled = true;  // 서버 시작
             button2.Enabled = false; // 서버 종료
-            button3.Enabled = false; // 전송
             isServerRun = false;
             listBox1.Items.Add("Server stopped");
             server.Stop();
             listBox2.Items.Clear();
-        }
-
-        private void button3_Click(object sender, EventArgs e) // 전송
-        {
-            if (!textBox1.Text.Contains('⧫') && !textBox1.Text.Contains('◊'))
-            {
-                if (textBox1.Text != "")
-                {
-                    foreach (var c in clients)
-                    {
-                        c.client.GetStream().Write(Encoding.UTF8.GetBytes("0⧫" + "Server: " + textBox2.Text + '◊'));
-                    }
-                    listBox1.Items.Add("Server: " + textBox2.Text);
-                    textBox2.Text = "";
-                    listBox1.TopIndex = listBox1.Items.Count - 1;
-                }
-                else
-                {
-                    MessageBox.Show("채팅은 공백이면 안됩니다.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("채팅에 다음 문자는 포함되면 안됩니다: ⧫, ◊");
-            }
         }
 
         static string GetLocalIPAddress()
@@ -350,14 +322,6 @@ namespace Server_test
             {
                 string response = client.DownloadString("https://api.ipify.org");
                 return response;
-            }
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && isServerRun) // 엔터 누르면 전송
-            {
-                button3.PerformClick(); // 전송 버튼
             }
         }
 

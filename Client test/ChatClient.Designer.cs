@@ -216,7 +216,6 @@
             Name = "ChatClient";
             Text = "Client";
             FormClosing += Form1_FormClosing;
-            KeyDown += Form1_KeyDown;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

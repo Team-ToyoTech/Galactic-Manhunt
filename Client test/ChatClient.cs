@@ -36,10 +36,8 @@ namespace Client_test
         {
             InitializeComponent();
             button2.Enabled = false;
-            button3.Enabled = false;
             isConnected = false;
             isGameStarted = false;
-            comboBox1.SelectedIndex = 0; // default = 전체
 
             storage = new Inventory(0, 0); // 아이템 최대량, 능력 최대량
         }
@@ -72,8 +70,6 @@ namespace Client_test
                     isConnected = true;
                     button1.Enabled = false;  // 연결
                     button2.Enabled = true;   // 연결 해제
-                    button3.Enabled = true;   // 전송
-                    textBox1.Enabled = true;  // 닉네임
                 }
             }
             catch (Exception ex)
@@ -146,10 +142,7 @@ namespace Client_test
                             isConnected = false;
                             button1.Enabled = true;    // 연결
                             button2.Enabled = false;   // 연결 해제
-                            button3.Enabled = false;   // 전송
                             textBox4.Enabled = true;   // 닉네임
-                            textBox1.Enabled = false;  // 채팅창
-                            comboBox1.Enabled = false; // 채팅 대상 설정
                             listBox2.Items.Clear();
                         }));
 
@@ -231,10 +224,7 @@ namespace Client_test
             isConnected = false;
             button1.Enabled = true;    // 연결
             button2.Enabled = false;   // 연결 해제
-            button3.Enabled = false;   // 전송
             textBox4.Enabled = true;   // 닉네임
-            textBox1.Enabled = false;  // 채팅창
-            comboBox1.Enabled = false; // 채팅 대상 설정
             listBox2.Items.Clear();
         }
 
@@ -251,16 +241,7 @@ namespace Client_test
                 isConnected = false;
                 button1.Enabled = true;  // 연결
                 button2.Enabled = false; // 연결 해제
-                button3.Enabled = false; // 전송
                 textBox4.Enabled = true; // 닉네임
-            }
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && isConnected) // 엔터 누르면 전송
-            {
-                button3.PerformClick(); // 전송 버튼
             }
         }
 
