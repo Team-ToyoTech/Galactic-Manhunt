@@ -25,14 +25,18 @@ namespace Server_test
     }
     public partial class Map : Form
     {
-        public Map(List<Client>clients, List<Galaxy>galaxies)
+        List<Galaxy>galaxies;
+        colors[] buff;
+        List<Tuple<int, int>> galaxyLocates2 = new List<Tuple<int, int>>();
+        Bitmap bit;
+        public Map(List<Client>clients, List<Galaxy> galaxiess)
         {
             InitializeComponent();
+            galaxies = galaxiess;
             int[,] robLocates = new int[710, 460];
             int[,] copLocates = new int[710, 460];
             bool[,] visit = new bool[710, 460];
             List<Tuple<int, int>> galaxyLocates = new List<Tuple<int, int>>();
-            List<Tuple<int,int>>galaxyLocates2 = new List<Tuple<int, int>>();
 
             foreach(var galaxy in galaxies)
             {
@@ -55,7 +59,7 @@ namespace Server_test
             int width = 701;
             int height = 449;
 
-            colors[] buff = CreateColorBuffer(width, height);
+            buff = CreateColorBuffer(width, height);
 
             foreach (var galaxy in galaxyLocates2)
             {
@@ -83,10 +87,10 @@ namespace Server_test
                 }
             }
 
-            Bitmap bit = CreateColorBitMap(
-                width, height, buff);            
-
+            bit = CreateColorBitMap(width, height, buff);            
             pictureBox1.Image = bit;
+
+            
 
         }
 
@@ -142,9 +146,57 @@ namespace Server_test
 
             return image;
         }
-        public void LocationChange()
+        public void LocationChange(List<Client> clients)
         {
+            int width = 701;
+            int height = 449;
+            int[,] robLocates = new int[710, 460];
+            int[,] copLocates = new int[710, 460];
+            bool[,] visit = new bool[710, 460];
 
+            List<Tuple<int, int>> galaxyLocates = new List<Tuple<int, int>>();
+            foreach (var galaxy in galaxyLocates2)
+            {
+                int x = galaxy.Item1;
+                int y = galaxy.Item2;
+
+                buff[(x * 4) * height + y].blue = 0;
+                buff[(x * 4) * height + y].red = 0;
+                buff[(x * 4) * height + y].green = 0;
+            }
+
+
+            foreach (var client in clients)
+            {
+                Vector2 vector = client.galaxy.location;
+                if (client.GetType() == Client.PlayerType.cop) copLocates[(int)vector.x, (int)vector.y]++;
+                else if (client.GetType() == Client.PlayerType.robber) robLocates[(int)vector.x, (int)vector.y]++;
+                if (!visit[(int)vector.x, (int)vector.y])
+                {
+                    visit[(int)vector.x, (int)vector.y] = true;
+                    galaxyLocates.Add(new Tuple<int, int>((int)vector.x, (int)vector.y));
+                }
+            }
+
+
+            for (int i = 0; i < galaxyLocates.Count; i++)
+            {
+                int x = galaxyLocates[i].Item1;
+                int y = galaxyLocates[i].Item2;
+
+
+                if (copLocates[x, y] > 0)
+                {
+                    buff[(x * 4) * height + y].blue = 254;
+                }
+                if (robLocates[x, y] > 0)
+                {
+                    buff[(x * 4) * height + y].red = 254;
+                }
+            }
+
+            bit = CreateColorBitMap(width, height, buff);
+            pictureBox1.Image = bit; 
         }
 
         

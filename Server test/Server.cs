@@ -38,6 +38,8 @@ namespace Server_test
             button5.Enabled = false; // 게임 종료
             isClosing = false;
             label2.Text = "로컬 IP주소:\n" + GetLocalIPAddress() + "\n외부 IP주소:\n" + GetExternalIPAddress();
+            button6.Enabled = false;
+            button6.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e) // 서버 시작
@@ -468,6 +470,8 @@ namespace Server_test
             }
 
             map = new Map(clients, galaxyList);
+            button6.Visible = true;
+            button6.Enabled = true;
 
             // 게임 구현 시작
 
