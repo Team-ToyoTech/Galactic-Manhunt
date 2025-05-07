@@ -74,8 +74,6 @@ namespace Client_test
                     button2.Enabled = true;   // 연결 해제
                     button3.Enabled = true;   // 전송
                     textBox1.Enabled = true;  // 닉네임
-                    textBox4.Enabled = false; // 채팅창
-                    comboBox1.Enabled = true; // 채팅 대상 설정
                 }
             }
             catch (Exception ex)
@@ -134,11 +132,7 @@ namespace Client_test
                     }
                     string[] message = Encoding.UTF8.GetString(buffer, 0, buffer.Length).Split("◊")[0].Split('⧫');
 
-                    if (message[0] == "0") // 채팅
-                    {
-                        Invoke(new Action(() => listBox1.Items.Add(message[1])));
-                    }
-                    else if (message[0] == "1") // 연결 종료
+                    if (message[0] == "1") // 연결 종료
                     {
                         client.Close();
                         if (message[1] != "")
@@ -259,30 +253,6 @@ namespace Client_test
                 button2.Enabled = false; // 연결 해제
                 button3.Enabled = false; // 전송
                 textBox4.Enabled = true; // 닉네임
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e) // 전송
-        {
-            if (!textBox1.Text.Contains('⧫') && !textBox1.Text.Contains('◊'))
-            {
-                if (textBox1.Text != "")
-                {
-                    Send("0", $"{nickname}: " + textBox1.Text);
-                    //stream.Write(Encoding.UTF8.GetBytes("0⧫" + $"{nickname}: " + textBox1.Text + '◊'));
-                    stream.Flush();
-                    listBox1.Items.Add($"{nickname}: " + textBox1.Text);
-                    textBox1.Text = "";
-                    listBox1.TopIndex = listBox1.Items.Count - 1;
-                }
-                else
-                {
-                    MessageBox.Show("채팅은 공백이면 안됩니다.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("채팅에 다음 문자는 포함되면 안됩니다: ⧫, ◊");
             }
         }
 
