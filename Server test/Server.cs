@@ -277,6 +277,68 @@ namespace Server_test
             }
         }
 
+
+
+
+        /* 입력 코드 */
+
+        // 자원 채집 : 11
+        // 상점 이용 : 12
+        // 환전 : 13
+        // 은하 이동 : 14
+        // 항성계 이동 : 15
+        // 능력 사용 - 총 11개
+
+        // 경찰
+        // darkUnderTheLamp  등잔 밑이 어둡다 : 16
+        // galaxyTravel          은하 탐방 : 17
+        // planetTravel          행성 탐방 : 18
+        // stun                  스턴 : 19 
+        // handcuff,             수갑 : 20
+        // teamIdentify,         팀 식별 : 21
+        //
+        // 도둑
+        // getFuel,              겟 퓨얼 : 22
+        // fuelChanger,          연료 교환권 : 23
+        // fuelCompressor,       연료 압축기 : 24
+        // stunRemover,          스턴 제거기 : 25
+        //                       
+        // 공통
+        // storageGrowth         저장량 증가 : 26
+
+        // 농사 지은거 채집: 27
+        // 연료 합성 : 28
+        // 농사하기 : 29
+        // 감옥 넣기 : 30
+
+
+        // client 번호 반환 함수
+        int returnClientNumber(int number)
+        {
+            int num = 0;
+            foreach (var client in clients)
+            {
+
+                if (client.clientNumber == number) return num;
+                num++;
+            }
+            return num;
+        }
+
+        void ClientWork(int clientRealNumber)
+        {
+            clientRealNumber = returnClientNumber(clientRealNumber);
+            Client client = clients[clientRealNumber];
+            NetworkStream stream = client.client.GetStream();
+            byte[] buffer = new byte[102400];
+            buffer[102399] = 255;
+            bool error = false;
+            string msg = "";
+
+
+        }
+
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) // 프로그램 종료
         {
             isClosing = true;
@@ -347,64 +409,6 @@ namespace Server_test
         }
 
 
-
-        /* 입력 코드 */
-
-        // 자원 채집 : 11
-        // 상점 이용 : 12
-        // 환전 : 13
-        // 은하 이동 : 14
-        // 항성계 이동 : 15
-        // 능력 사용 - 총 11개
-
-        // 경찰
-        // darkUnderTheLamp  등잔 밑이 어둡다 : 16
-        // galaxyTravel          은하 탐방 : 17
-        // planetTravel          행성 탐방 : 18
-        // stun                  스턴 : 19 
-        // handcuff,             수갑 : 20
-        // teamIdentify,         팀 식별 : 21
-        //
-        // 도둑
-        // getFuel,              겟 퓨얼 : 22
-        // fuelChanger,          연료 교환권 : 23
-        // fuelCompressor,       연료 압축기 : 24
-        // stunRemover,          스턴 제거기 : 25
-        //                       
-        // 공통
-        // storageGrowth         저장량 증가 : 26
-
-        // 농사 지은거 채집: 27
-        // 연료 합성 : 28
-        // 농사하기 : 29
-        // 감옥 넣기 : 30
-
-
-        // client 번호 반환 함수
-        int returnClientNumber(int number)
-        {
-            int num = 0;
-            foreach (var client in clients)
-            {
-
-                if (client.clientNumber == number) return num;
-                num++;
-            }
-            return num;
-        }
-
-        void ClientWork(int clientRealNumber)
-        {
-            clientRealNumber = returnClientNumber(clientRealNumber);
-            Client client = clients[clientRealNumber];
-            NetworkStream stream = client.client.GetStream();
-            byte[] buffer = new byte[102400];
-            buffer[102399] = 255;
-            bool error = false;
-            string msg = "";
-
-
-        }
 
 
         void Game()
