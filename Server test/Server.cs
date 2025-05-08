@@ -61,7 +61,7 @@ namespace Server_test
         }
 
         /* 입력 코드 */
-        // 0 : 채팅
+
         // 1 : 연결종료
         // 2 : 번호 지정(서버=>클라이언트)
         // 3 : 닉네임 전송(클라이언트=>서버)
@@ -72,9 +72,61 @@ namespace Server_test
         // 8 : 역할 전송 (ex: 8⧫0◊, 0이면 도둑, 1이면 경찰)
         // 9 : 선택한 함선 전송 (클라이언트 => 서버)
         // 10: 모두 함선 선택 완료 (서버 => 클라이언트)
+        // 11: 자원 채집
+        // 12: 상점 이용
+        // 13: 환전
+        // 14: 은하 이동
+        // 15: 항성계 이동
+
+        /*==================*/
+        // 능력 사용 - 총 11개
+
+        // 경찰 
+        // darkUnderTheLamp      등잔 밑이 어둡다 : 16
+        // galaxyTravel          은하 탐방 : 17
+        // planetTravel          행성 탐방 : 18
+        // stun                  스턴 : 19 
+        // handcuff,             수갑 : 20
+        // teamIdentify,         팀 식별 : 21
+
+        // 도둑
+        // getFuel,              겟 퓨얼 : 22
+        // fuelChanger,          연료 교환권 : 23
+        // fuelCompressor,       연료 압축기 : 24
+        // stunRemover,          스턴 제거기 : 25
+
+        // 공통
+        // storageGrowth         저장량 증가 : 26
+
+        /*==================*/
+        // 능력 구매 - 총 11개
+
+        // 경찰 
+        // darkUnderTheLamp 등잔 밑이 어둡다 : 27
+        // galaxyTravel     은하 탐방 : 28
+        // planetTravel     행성 탐방 : 29
+        // stun             스턴 : 30
+        // handcuff,        수갑 : 31
+        // teamIdentify,    팀 식별 : 32
+
+        // 도둑
+        // getFuel,         겟 퓨얼 : 33
+        // fuelChanger,     연료 교환권 : 34
+        // fuelCompressor,  연료 압축기 : 35
+        // stunRemover,     스턴 제거기 : 36
+
+        // 공통
+        // storageGrowth    저장량 증가 : 37
+
+        /*==================*/
+        // 농사 지은거 채집: 38
+        // 연료 합성 : 39
+        // 농사하기 : 40
+        // 감옥 넣기 : 41
 
         // Split 문자 : ⧫
         // 송신 Check 문자 : ◊
+
 
         public void Delay(int ms)
         {
@@ -277,41 +329,6 @@ namespace Server_test
             }
         }
 
-
-
-
-        /* 입력 코드 */
-
-        // 자원 채집 : 11
-        // 상점 이용 : 12
-        // 환전 : 13
-        // 은하 이동 : 14
-        // 항성계 이동 : 15
-        // 능력 사용 - 총 11개
-
-        // 경찰
-        // darkUnderTheLamp  등잔 밑이 어둡다 : 16
-        // galaxyTravel          은하 탐방 : 17
-        // planetTravel          행성 탐방 : 18
-        // stun                  스턴 : 19 
-        // handcuff,             수갑 : 20
-        // teamIdentify,         팀 식별 : 21
-        //
-        // 도둑
-        // getFuel,              겟 퓨얼 : 22
-        // fuelChanger,          연료 교환권 : 23
-        // fuelCompressor,       연료 압축기 : 24
-        // stunRemover,          스턴 제거기 : 25
-        //                       
-        // 공통
-        // storageGrowth         저장량 증가 : 26
-
-        // 농사 지은거 채집: 27
-        // 연료 합성 : 28
-        // 농사하기 : 29
-        // 감옥 넣기 : 30
-
-
         // client 번호 반환 함수
         int returnClientNumber(int number)
         {
@@ -334,8 +351,6 @@ namespace Server_test
             buffer[102399] = 255;
             bool error = false;
             string msg = "";
-
-
         }
 
 
@@ -408,9 +423,6 @@ namespace Server_test
             return players / 2;
         }
 
-
-
-
         void Game()
         {
             // TODO: 게임 구현하기
@@ -464,8 +476,6 @@ namespace Server_test
             }
 
             // 랜덤 지도 생성
-
-
             bool[,] visited = new bool[760, 460];
             int maxGalaxy = (clients.Count() > 40) ? 20 : (clients.Count() < 20 ? 11 : clients.Count() / 2); // 최대는 11 ~ 20인데 20 - > 인원 / 2로
             int galaxySize = rand.Next(10, maxGalaxy);
@@ -515,8 +525,6 @@ namespace Server_test
                     
                 }
             }
-            
-            
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e) // 포트 텍스트 박스에서 엔터
