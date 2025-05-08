@@ -16,8 +16,10 @@ namespace Server_test
         public Inventory inventory;
         public Galaxy galaxy;
         public PlanetSystem planetSystem;
+        public List<Sailor> sailors;
         public PlanetSystem advancedPlanetsystem; // 행성 탐방 스킬때문에 사용
         public Planet planet;
+        public int clientNumber;    // 사용자 realNumber
         public PlayerType playerType;
         public bool isMoving = true; // 행동 가능/불가능 판별 변수
         public int fuelSale = 0;     // 연료 압축기로 줄이는 비율 - 할인 비율 40%
@@ -30,14 +32,9 @@ namespace Server_test
             this.client = client;
             nickname = "Client" + n.ToString();
             inventory = new Inventory(140,100);
+            clientNumber = n;
         }
 
-        public Client(TcpClient client, string str)
-        {
-            this.client = client;
-            nickname = str;
-            inventory = new Inventory(140,100);
-        }
 
         // 겟 퓨얼 찬성 / 반대 함수
         public bool HelpRobber(Resource resource, double mass, string name) // name 은 비교하는 대상이 스킬 사용 대상과 같은지 비교 위해서

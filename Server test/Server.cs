@@ -346,6 +346,27 @@ namespace Server_test
             return players / 2;
         }
 
+        // client 번호 반환 함수
+        int returnClientNumber(int number)
+        {
+            int num = 0;
+            foreach (var client in clients)
+            {
+
+                if (client.clientNumber == number) return num;
+                num++;
+            }
+            return num;
+        }
+
+        void ClientWork(int clientRealNumber)
+        {
+            clientRealNumber = returnClientNumber(clientRealNumber);
+            Client client = clients[clientRealNumber];
+            NetworkStream stream = client.client.GetStream();
+        }
+
+
         void Game()
         {
             // TODO: 게임 구현하기
@@ -436,22 +457,22 @@ namespace Server_test
             map = new Map(clients, galaxyList);
             button6.Visible = true;
             button6.Enabled = true;
+            // 순서 섞기
 
+            clients = clients.OrderBy(_ => rand.Next()).ToList();
             // 게임 구현 시작
 
             int turn = 200;
-            byte[] bytes = new byte[102400];
 
-            // bytes 신호
-
-            while (turn-- >= 0)
+            while(turn-- >= 0)
             {
-
-                foreach (var clt in clients)
+                foreach(var c in clients)
                 {
-
+                    
                 }
             }
+            
+            
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e) // 포트 텍스트 박스에서 엔터
