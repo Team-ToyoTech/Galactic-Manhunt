@@ -60,7 +60,7 @@ namespace Client_test
 
         private void button2_Click(object sender, EventArgs e) // 사용
         {
-
+            dataGridView2.SelectedColumns(); // 셀 선택 해제
         }
 
         private void ItemUse_KeyDown(object sender, KeyEventArgs e)
