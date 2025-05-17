@@ -319,12 +319,17 @@ namespace Server_test
                         }
                     }
 
-                    else if (message[0] == "100")
+                    else if (message[0] == "100")   // 능력 사용
                     {
                         ClientUse(client, message[1]);
                         client.client.GetStream().Write(Encoding.UTF8.GetBytes(message[1] + "⧫◊")); // 사용 성공 함수
                     }
-                    else if (message[0] == "200")
+                    else if (message[0] == "200")   // 아이템 구매
+                    {
+                        ClientItemPurchase(client, message[1]);
+                        client.client.GetStream().Write(Encoding.UTF8.GetBytes(message[1] + "⧫◊"));
+                    }
+                    else if (message[0] == "300")   // 능력 구매
                     {
                         
                     }
@@ -344,10 +349,13 @@ namespace Server_test
         }
 
         // 구매 통신 함수
-        void ClientPurchase(Client client, string msg)
+        void ClientItemPurchase(Client client, string msg)
         {
             
-            
+        }
+
+        void ClientAbilityPurchase(Client client, string msg)
+        {
 
         }
 

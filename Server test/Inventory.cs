@@ -14,7 +14,7 @@ namespace Server_test
     public class Inventory
     {
         List<Item> items;                    // 아이템 저장
-        Dictionary<Ability, int> abilities;  // 능력 저장,    이름, 개수
+        Dictionary<AbilityType, int> abilities;  // 능력 저장,    이름, 개수
         double itemMax;                      // 아이템 최댓값, 단위: kg
         int abilityMax;                      // 능력 최댓값, 단위: 개
         public int inventoryLevel = 0;             // 인벤토리 레벨
@@ -22,7 +22,7 @@ namespace Server_test
         public Inventory(double itemMax, int abilityMax) 
         {
             items = new List<Item>();
-            abilities = new Dictionary<Ability, int>();
+            abilities = new Dictionary<AbilityType, int>();
             this.itemMax = itemMax;
             this.abilityMax = abilityMax;
         }
@@ -49,7 +49,7 @@ namespace Server_test
         }
 
         // 능력 리스트 반환
-        public Dictionary<Ability, int> Abilities
+        public Dictionary<AbilityType, int> Abilities
         { 
             get { return abilities; } 
         }
@@ -109,36 +109,21 @@ namespace Server_test
 
 
         // 능력 추가
-        public void AddAbility(Ability ability)
+        public void AddAbility(Ability ability, int cnt)
         {
-            foreach (var ab in abilities)
-            {
-                if (ability.GetType() == ab.GetType())
-                {
-                    abilities[ab.Key]++;
-                }
-            }
+            abilities[ability.GetAbilityType()]+=cnt;
+            
         }
 
         // 능력 삭제 __ 구현은 RemoveItem과 동일한 방식
-        public bool RemoveAbility(Ability ability)
+        public bool RemoveAbility(AbilityType ability)
         {
-            foreach (var Ab in abilities)
+            if (abilities[ability] > 0)
             {
-                if (ability.GetType() == ability.GetType())
-                {
-                    if (abilities[Ab.Key] - 1 >= 0)
-                    {
-                        abilities[Ab.Key]--;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
+                abilities[ability]--;
+                return true;
             }
-            return false;
+            else return true;
         }
 
         // 능력 초기화
