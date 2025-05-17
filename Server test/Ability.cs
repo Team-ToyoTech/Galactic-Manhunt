@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Server_test
 {
-    /*                     ⚠️ 중 요 ⚠️                     */
-    /* !! 수정 후 Client에 있는 파일도 똑같이 수정해줘야 함 !! */
-    /* !!      바꿀 때 namespace Server_test 로 변경      !! */
-
     // Ability 클래스
     public class Ability
     {
