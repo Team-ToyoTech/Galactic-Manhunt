@@ -20,6 +20,7 @@ namespace Server_test
         public static Prison prison;
         Map map;
         List<Galaxy> galaxyList = new List<Galaxy>();
+        int k = 0;  // clientRealNumber때문에 만든거
         public List<Client> Robbers
         {
             get { return robbers; }
@@ -81,7 +82,7 @@ namespace Server_test
         // 15: 항성계 이동
 
         /*==================*/
-        // 능력 사용 - 총 11개
+        // 능력 사용 - 총 11개 - 100
 
         // 경찰 
         // darkUnderTheLamp      등잔 밑이 어둡다 : 16
@@ -101,7 +102,7 @@ namespace Server_test
         // storageGrowth         저장량 증가 : 26
 
         /*==================*/
-        // 능력 구매 - 총 11개
+        // 능력 구매 - 총 11개 - 200
 
         // 경찰 
         // darkUnderTheLamp 등잔 밑이 어둡다 : 27
@@ -316,6 +317,11 @@ namespace Server_test
                             client.client.GetStream().Write(Encoding.UTF8.GetBytes("10⧫◊"));
                         }
                     }
+
+                    else if (message[0] == "200")
+                    {
+
+                    }
                     Invoke(new Action(() => listBox1.TopIndex = listBox1.Items.Count - 1));
                 }
                 catch (Exception e)
@@ -329,6 +335,21 @@ namespace Server_test
                 Invoke(new Action(() => listBox1.Items.Remove(client.nickname)));
                 clients.Remove(client);
             }
+        }
+
+        // 구매 통신 함수
+        void ClientPurchase(Client client, string msg)
+        {
+            // 
+            if (msg == "26")
+            {
+                int level = client.inventory.LevelReturn;
+                if(level == 0)
+                {
+                    client.inventory.SetItemMax()
+                }
+            }
+
         }
 
         // client 번호 반환 함수
@@ -428,7 +449,7 @@ namespace Server_test
         void Game()
         {
             // TODO: 게임 구현하기
-            // TODO: 서버에 이미지 파일 하나 만들어서 전체 지도 표시할거임. 평범한 상태는 검은색, 도둑이 있는 은하는 빨간색, 경찰이 있는 은하는 파란색, 둘 다 있는 은하는 보라색
+            // TODO: 서버에 이미지 파일 하나 만들어서 전체 지도 표시할거임. 평범한 상태는 검은색, 도둑이 있는 은하는 빨간색, 경찰이 있는 은하는 파란색, 둘 다 있는 은하는 보라색 - 완
             Random rand = new Random(Convert.ToInt16(DateTime.Now.Ticks % 10000));
 
             foreach (var c in clients)
