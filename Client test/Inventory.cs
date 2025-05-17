@@ -17,6 +17,7 @@ namespace Client_test
         Dictionary<Ability, int> abilities;  // 능력 저장,    이름, 개수
         double itemMax;                      // 아이템 최댓값, 단위: kg
         int abilityMax;                      // 능력 최댓값, 단위: 개
+        int level = 0;                      // 인벤토리 레벨
 
         public Inventory(double itemMax, int abilityMax) 
         {
