@@ -99,7 +99,7 @@ namespace Server_test
         // stunRemover,          스턴 제거기 : 25
 
         // 공통
-        // storageGrowth         저장량 증가 : 26
+        // storageGrowth         저장량 증가 : 26 -- server_ok
 
         /*==================*/
         // 능력 구매 - 총 11개 - 200
@@ -320,7 +320,11 @@ namespace Server_test
 
                     else if (message[0] == "200")
                     {
-
+                        ClientPurchase(client, message[1]);
+                    }
+                    else if (message[0] == "100")
+                    {
+                        
                     }
                     Invoke(new Action(() => listBox1.TopIndex = listBox1.Items.Count - 1));
                 }
@@ -343,14 +347,26 @@ namespace Server_test
             // 
             if (msg == "26")
             {
-                int level = client.inventory.LevelReturn;
+                int level = client.inventory.inventoryLevel;
                 if(level == 0)
                 {
-                    client.inventory.SetItemMax()
+                    client.inventory.SetItemMax(9000);
+                    client.inventory.inventoryLevel++;
+                }
+                else if(level == 1)
+                {
+                    client.inventory.SetItemMax(13000);
+                    client.inventory.inventoryLevel++;
+                }
+                else if (level == 2)
+                {
+                    client.inventory.SetItemMax(17000);
+                    client.inventory.inventoryLevel++;
                 }
             }
 
         }
+
 
         // client 번호 반환 함수
         int returnClientNumber(int number)

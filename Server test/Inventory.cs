@@ -17,7 +17,7 @@ namespace Server_test
         Dictionary<Ability, int> abilities;  // 능력 저장,    이름, 개수
         double itemMax;                      // 아이템 최댓값, 단위: kg
         int abilityMax;                      // 능력 최댓값, 단위: 개
-        int inventoryLevel = 0;             // 인벤토리 레벨
+        public int inventoryLevel = 0;             // 인벤토리 레벨
 
         public Inventory(double itemMax, int abilityMax) 
         {
@@ -28,10 +28,7 @@ namespace Server_test
         }
 
         // 레벨 반환
-        public int LevelReturn
-        {
-            get { return inventoryLevel; }
-        }
+        
 
         // 아이템 최대량 반환
         public double ItemMax
