@@ -15,7 +15,6 @@ namespace Client_test
         static bool isGameStarted;
         internal Job job;
         internal ShipType ship;
-        internal Inventory storage;
 
         internal Dictionary<Job, string> jobDisplay = new Dictionary<Job, string> // enum Job에 따른 한글 표시
         {
@@ -38,8 +37,6 @@ namespace Client_test
             button2.Enabled = false;
             isConnected = false;
             isGameStarted = false;
-
-            storage = new Inventory(0, 0); // 아이템 최대량, 능력 최대량
         }
 
         public void Send(string type, string msg)
@@ -248,6 +245,7 @@ namespace Client_test
         private void button5_Click(object sender, EventArgs e) // 저장고 확인
         {
             Storage storage = new Storage(this);
+
             storage.Show();
         }
 
@@ -283,4 +281,14 @@ namespace Client_test
         robber, // 도둑
         cop     // 경찰
     };
+
+    enum ShipType
+    {
+        none,                // 선택되지 않음
+        newbieShip,          // 초급자 전용 함선
+        resourceShip,        // 자원 함선
+        sailorShip,          // 선원 함선
+        galaxyTravelingShip, // 초은하 이동 함선
+        robberShip            // 도적 함선
+    }
 }
