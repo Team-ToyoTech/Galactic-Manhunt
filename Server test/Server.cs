@@ -126,6 +126,7 @@ namespace Server_test
         // 연료 합성 : 39
         // 농사하기 : 40
         // 감옥 넣기 : 41
+        // 저장고 확인 : 42
 
         // Split 문자 : ⧫
         // 송신 Check 문자 : ◊
@@ -318,11 +319,12 @@ namespace Server_test
                         }
                     }
 
-                    else if (message[0] == "200")
-                    {
-                        ClientPurchase(client, message[1]);
-                    }
                     else if (message[0] == "100")
+                    {
+                        ClientUse(client, message[1]);
+                        client.client.GetStream().Write(Encoding.UTF8.GetBytes(message[1] + "⧫◊")); // 사용 성공 함수
+                    }
+                    else if (message[0] == "200")
                     {
                         
                     }
@@ -344,16 +346,25 @@ namespace Server_test
         // 구매 통신 함수
         void ClientPurchase(Client client, string msg)
         {
-            // 
+            
+            
+
+        }
+
+        // 사용 통신 함수
+        void ClientUse(Client client, string msg)
+        {
+
+            // 저장량 증가
             if (msg == "26")
             {
                 int level = client.inventory.inventoryLevel;
-                if(level == 0)
+                if (level == 0)
                 {
                     client.inventory.SetItemMax(9000);
                     client.inventory.inventoryLevel++;
                 }
-                else if(level == 1)
+                else if (level == 1)
                 {
                     client.inventory.SetItemMax(13000);
                     client.inventory.inventoryLevel++;
@@ -364,7 +375,7 @@ namespace Server_test
                     client.inventory.inventoryLevel++;
                 }
             }
-
+            
         }
 
 
