@@ -15,6 +15,8 @@ namespace Client_test
         static bool isGameStarted;
         internal Job job;
         internal ShipType ship;
+        internal List<int> itemStorage = new List<int>(); // 아이템 저장소
+        internal List<int> abilityStorage = new List<int>(); // 능력 저장소
 
         internal Dictionary<Job, string> jobDisplay = new Dictionary<Job, string> // enum Job에 따른 한글 표시
         {
@@ -201,6 +203,10 @@ namespace Client_test
                     {
                         // TODO: 게임 시작 구현
                     }
+                    else if (message[0] == "42") // 저장고 확인
+                    {
+
+                    }
                         Invoke(new Action(() => listBox1.TopIndex = listBox1.Items.Count - 1));
                 }
                 catch (Exception ex)
@@ -245,7 +251,7 @@ namespace Client_test
         private void button5_Click(object sender, EventArgs e) // 저장고 확인
         {
             Storage storage = new Storage(this);
-
+            Send("42", ""); // 저장고 확인 요청
             storage.Show();
         }
 

@@ -563,6 +563,17 @@ namespace Client_test
                 // 아이템 구매
                 MessageBox.Show("구매 완료"); // 구매 완료를 표현하는 방법은 이거 말고 label로 표현해주세요, 지금은 확인용으로 임시입니다
             }
+            string msg = textBox1.Text + ","
+                + textBox2.Text + ","
+                + textBox4.Text + ","
+                + textBox3.Text + ","
+                + textBox8.Text + ","
+                + textBox7.Text + ","
+                + textBox6.Text + ","
+                + textBox5.Text + ","
+                + textBox10.Text + ","
+                + textBox9.Text;
+            chatClient.Send("200", msg);
         }
 
         #region itemKeyDown
@@ -655,6 +666,13 @@ namespace Client_test
                 // 아이템 구매
                 MessageBox.Show("구매 완료"); // 구매 완료를 표현하는 방법은 이거 말고 label로 표현해주세요, 지금은 확인용으로 임시입니다
             }
+            string msg = textBox20.Text + ","
+                + textBox19.Text + ","
+                + textBox18.Text + ","
+                + textBox17.Text + ","
+                + textBox16.Text + ","
+                + textBox15.Text;
+            chatClient.Send("300", msg);
         }
 
         #region abilityKeyDown
