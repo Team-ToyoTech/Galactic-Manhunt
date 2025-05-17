@@ -60,7 +60,12 @@ namespace Client_test
 
         private void button2_Click(object sender, EventArgs e) // 사용
         {
-            dataGridView2.SelectedColumns(); // 셀 선택 해제
+            if (dataGridView2.SelectedRows.Count == 0) // 선택된 아이템이 없으면 사용 불가
+            {
+                MessageBox.Show("아이템을 선택하세요.");
+                return;
+            }
+            chatClient.Send("100", dataGridView2.SelectedColumns.ToString());
         }
 
         private void ItemUse_KeyDown(object sender, KeyEventArgs e)
