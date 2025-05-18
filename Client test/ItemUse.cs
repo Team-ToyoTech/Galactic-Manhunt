@@ -65,7 +65,9 @@ namespace Client_test
                 MessageBox.Show("아이템을 선택하세요.");
                 return;
             }
-            chatClient.Send("100", dataGridView2.SelectedColumns.ToString());
+            // 선택된 행의 첫 번째 열 값 가져오기
+            var Value = dataGridView2.SelectedRows[0].Cells[0].Value.ToString();
+            chatClient.Send("100", Value);
         }
 
         private void ItemUse_KeyDown(object sender, KeyEventArgs e)
