@@ -96,7 +96,7 @@ namespace Server_test
         // getFuel,              겟 퓨얼 : 22
         // fuelChanger,          연료 교환권 : 23
         // fuelCompressor,       연료 압축기 : 24
-        // stunRemover,          스턴 제거기 : 25
+        // stunRemover,          스턴 제거기 : 25--ok
 
         // 공통
         // storageGrowth         저장량 증가 : 26 -- server_ok
@@ -321,17 +321,18 @@ namespace Server_test
 
                     else if (message[0] == "100")   // 능력 사용
                     {
-                        ClientUse(client, message[1]);
+                        ClientUse(clientRealNumber, message);
                         client.client.GetStream().Write(Encoding.UTF8.GetBytes(message[1] + "⧫◊")); // 사용 성공 함수
                     }
                     else if (message[0] == "200")   // 아이템 구매
                     {
-                        ClientItemPurchase(client, message[1]);
+                        ClientItemPurchase(clientRealNumber, message);
                         client.client.GetStream().Write(Encoding.UTF8.GetBytes(message[1] + "⧫◊"));
                     }
                     else if (message[0] == "300")   // 능력 구매
                     {
-                        
+                        ClientAbilityPurchase(clientRealNumber, message);
+                        client.client.GetStream().Write(Encoding.UTF8.GetBytes(message[1] + "⧫◊"));
                     }
                     Invoke(new Action(() => listBox1.TopIndex = listBox1.Items.Count - 1));
                 }
@@ -349,41 +350,68 @@ namespace Server_test
         }
 
         // 구매 통신 함수
-        void ClientItemPurchase(Client client, string msg)
+        void ClientItemPurchase(int clientRealNumber, string[] msg)
         {
             
         }
 
-        void ClientAbilityPurchase(Client client, string msg)
+        void ClientAbilityPurchase(int clientRealNumber, string[] msg)
         {
 
         }
 
         // 사용 통신 함수
-        void ClientUse(Client client, string msg)
+        void ClientUse(int clientRealNumber, string[] msg)
         {
 
-            // 저장량 증가
-            if (msg == "26")
+            Work work = new Work(WorkType.itemUse);
+
+
+            // 겟 퓨얼
+            if (msg[1] == "22")
             {
-                int level = client.inventory.inventoryLevel;
+                Resource resource = new Resource();
+                if (msg[2] == " hydrogen") resource = Resource.hydrogen;
+                else if (msg[2] == "nitrogen") resource = Resource.nitrogen;
+                else if (msg[2] == "oxygen") resource = Resource.oxygen;
+                else if (msg[2] == "epsilonCrystal") resource = Resource.epsilonCrystal;
+                else if (msg[2] == "peroxide") resource = Resource.peroxide;
+                else if (msg[2] == "hydrazine") resource = Resource.hydrazine;
+                else if (msg[2] == "epsilon") resource = Resource.epsilon;
+                else if (msg[2] == "water") resource = Resource.water;
+                else if (msg[2] == "food") resource = Resource.food;
+                else if (msg[2] == "seed") resource = Resource.seed;
+                else if (msg[2] == "chrono") resource = Resource.chrono;
+                
+                clients[clientRealNumber].inventory.AddItem(new Item(resource,work.GetFuel(resource).mass));
+            }
+            
+              // 스턴 제거기
+            if (msg[1] == "25")
+            {
+                clients[clientRealNumber].isMoving = true;
+            }
+            
+              // 저장량 증가
+            if (msg[1] == "26")
+            {
+                int level = clients[clientRealNumber].inventory.inventoryLevel;
                 if (level == 0)
                 {
-                    client.inventory.SetItemMax(9000);
-                    client.inventory.inventoryLevel++;
+                    clients[clientRealNumber].inventory.SetItemMax(9000);
+                    clients[clientRealNumber].inventory.inventoryLevel++;
                 }
                 else if (level == 1)
                 {
-                    client.inventory.SetItemMax(13000);
-                    client.inventory.inventoryLevel++;
+                    clients[clientRealNumber].inventory.SetItemMax(13000);
+                    clients[clientRealNumber].inventory.inventoryLevel++;
                 }
                 else if (level == 2)
                 {
-                    client.inventory.SetItemMax(17000);
-                    client.inventory.inventoryLevel++;
+                    clients[clientRealNumber].inventory.SetItemMax(17000);
+                    clients[clientRealNumber].inventory.inventoryLevel++;
                 }
             }
-            
         }
 
 

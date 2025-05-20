@@ -107,16 +107,6 @@ namespace Server_test
 
         // 아이템 사용 == 능력 사용
 
-        // 저장량 증가
-        int UsingStorageGrowth(Ability ability)
-        {
-            if(ability.GetAbilityType() == AbilityType.storageGrowth)
-            {
-                return 4000;
-            }
-            return 0;
-        }
-        
         // 은하 탐방
         List<Vector2> UsingGalaxyMove(Ability ability)
         {
