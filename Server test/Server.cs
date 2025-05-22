@@ -88,14 +88,14 @@ namespace Server_test
         // darkUnderTheLamp      등잔 밑이 어둡다 : 16
         // galaxyTravel          은하 탐방 : 17
         // planetTravel          행성 탐방 : 18
-        // stun                  스턴 : 19 
+        // stun                  스턴 : 19  -- ok
         // handcuff,             수갑 : 20
         // teamIdentify,         팀 식별 : 21
 
         // 도둑
-        // getFuel,              겟 퓨얼 : 22
+        // getFuel,              겟 퓨얼 : 22--ok
         // fuelChanger,          연료 교환권 : 23
-        // fuelCompressor,       연료 압축기 : 24
+        // fuelCompressor,       연료 압축기 : 24--ok
         // stunRemover,          스턴 제거기 : 25--ok
 
         // 공통
@@ -365,6 +365,23 @@ namespace Server_test
         {
 
             Work work = new Work(WorkType.itemUse);
+            // 스턴
+            if (msg[1] == "19")
+            {
+                Vector2 locate = clients[clientRealNumber].galaxy.location;
+                foreach(var client in clients)
+                {
+                    if (client.clientNumber != clientRealNumber)
+                    {
+                        if(client.galaxy.Location == locate && client.playerType == Client.PlayerType.robber)
+                        {
+                            client.isMoving = false;
+                        }
+                    }
+                }
+            }
+
+
 
 
             // 겟 퓨얼
@@ -385,7 +402,23 @@ namespace Server_test
                 
                 clients[clientRealNumber].inventory.AddItem(new Item(resource,work.GetFuel(resource).mass));
             }
-            
+            // 연료 압축기
+            if (msg[1] == "24")
+            {
+                Resource resource = new Resource();
+                if (msg[2] == " hydrogen") resource = Resource.hydrogen;
+                else if (msg[2] == "nitrogen") resource = Resource.nitrogen;
+                else if (msg[2] == "oxygen") resource = Resource.oxygen;
+                else if (msg[2] == "epsilonCrystal") resource = Resource.epsilonCrystal;
+                else if (msg[2] == "peroxide") resource = Resource.peroxide;
+                else if (msg[2] == "hydrazine") resource = Resource.hydrazine;
+                else if (msg[2] == "epsilon") resource = Resource.epsilon;
+                else if (msg[2] == "water") resource = Resource.water;
+                else if (msg[2] == "food") resource = Resource.food;
+                else if (msg[2] == "seed") resource = Resource.seed;
+                else if (msg[2] == "chrono") resource = Resource.chrono;
+                clients[clientRealNumber].inventory.AddItem(new Item(resource, work.ReturnSaleFuel()));
+            }
               // 스턴 제거기
             if (msg[1] == "25")
             {
