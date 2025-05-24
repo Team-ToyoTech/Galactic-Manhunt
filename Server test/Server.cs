@@ -89,7 +89,7 @@ namespace Server_test
         // galaxyTravel          은하 탐방 : 17
         // planetTravel          행성 탐방 : 18
         // stun                  스턴 : 19  -- ok
-        // handcuff,             수갑 : 20
+        // handcuff,             수갑 : 20  
         // teamIdentify,         팀 식별 : 21
 
         // 도둑
@@ -369,21 +369,35 @@ namespace Server_test
             if (msg[1] == "19")
             {
                 Vector2 locate = clients[clientRealNumber].galaxy.location;
-                foreach(var client in clients)
+                foreach (var client in clients)
                 {
                     if (client.clientNumber != clientRealNumber)
                     {
-                        if(client.galaxy.Location == locate && client.playerType == Client.PlayerType.robber)
+                        if (client.galaxy.Location == locate && client.playerType == Client.PlayerType.robber)
                         {
                             client.isMoving = false;
                         }
                     }
                 }
             }
-
-
-
-
+            // 수갑
+            if (msg[1] == "20")
+            {
+                Vector2 locates = clients[clientRealNumber].planetSystem.location;
+                Vector2 locate = clients[clientRealNumber].galaxy.Location;
+                foreach (var client in clients)
+                {
+                    if (client.playerType == Client.PlayerType.robber && client.galaxy.location == locate && client.planetSystem.location == locates)
+                    {
+                        client.galaxy = prison.galaxy;
+                        prison.AddRobber();
+                        if (prison.IsFinish())
+                        {
+                            // TODO : 게임 끝내는 함수 만들고 호출하기.
+                        }
+                    }
+                }
+            }
             // 겟 퓨얼
             if (msg[1] == "22")
             {
@@ -399,8 +413,8 @@ namespace Server_test
                 else if (msg[2] == "food") resource = Resource.food;
                 else if (msg[2] == "seed") resource = Resource.seed;
                 else if (msg[2] == "chrono") resource = Resource.chrono;
-                
-                clients[clientRealNumber].inventory.AddItem(new Item(resource,work.GetFuel(resource).mass));
+
+                clients[clientRealNumber].inventory.AddItem(new Item(resource, work.GetFuel(resource).mass));
             }
             // 연료 압축기
             if (msg[1] == "24")
@@ -419,13 +433,13 @@ namespace Server_test
                 else if (msg[2] == "chrono") resource = Resource.chrono;
                 clients[clientRealNumber].inventory.AddItem(new Item(resource, work.ReturnSaleFuel()));
             }
-              // 스턴 제거기
+            // 스턴 제거기
             if (msg[1] == "25")
             {
                 clients[clientRealNumber].isMoving = true;
             }
-            
-              // 저장량 증가
+
+            // 저장량 증가
             if (msg[1] == "26")
             {
                 int level = clients[clientRealNumber].inventory.inventoryLevel;
@@ -445,31 +459,32 @@ namespace Server_test
                     clients[clientRealNumber].inventory.inventoryLevel++;
                 }
             }
-        }
+            
 
 
-        // client 번호 반환 함수
-        int returnClientNumber(int number)
-        {
-            int num = 0;
-            foreach (var client in clients)
+            // client 번호 반환 함수
+            int returnClientNumber(int number)
             {
+                int num = 0;
+                foreach (var client in clients)
+                {
 
-                if (client.clientNumber == number) return num;
-                num++;
+                    if (client.clientNumber == number) return num;
+                    num++;
+                }
+                return num;
             }
-            return num;
-        }
 
-        void ClientWork(int clientRealNumber)
-        {
-            clientRealNumber = returnClientNumber(clientRealNumber);
-            Client client = clients[clientRealNumber];
-            NetworkStream stream = client.client.GetStream();
-            byte[] buffer = new byte[102400];
-            buffer[102399] = 255;
-            bool error = false;
-            string msg = "";
+            void ClientWork(int clientRealNumber)
+            {
+                clientRealNumber = returnClientNumber(clientRealNumber);
+                Client client = clients[clientRealNumber];
+                NetworkStream stream = client.client.GetStream();
+                byte[] buffer = new byte[102400];
+                buffer[102399] = 255;
+                bool error = false;
+                string msg = "";
+            }
         }
 
 
