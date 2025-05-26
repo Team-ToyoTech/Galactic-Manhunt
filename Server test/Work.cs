@@ -108,7 +108,7 @@ namespace Server_test
         // 아이템 사용 == 능력 사용
 
         // 은하 탐방
-        List<Vector2> UsingGalaxyMove(Ability ability)
+        /*List<Vector2> UsingGalaxyMove(Ability ability)
         {
             if (ability.GetAbilityType() == AbilityType.galaxyTravel)
             {
@@ -120,7 +120,7 @@ namespace Server_test
                 return locationList;
             }
             return null;
-        }
+        }*/
 
         // 행성 탐방
 
@@ -195,7 +195,7 @@ namespace Server_test
         }
 
         // 수갑
-        public void Handcuff(PlanetSystem planetSystem, Planet planet)
+        /*public void Handcuff(PlanetSystem planetSystem, Planet planet)
         {
             foreach (var robber in Server.robbers)
             {
@@ -213,10 +213,10 @@ namespace Server_test
                     }
                 }
             }
-        }
+        }*/
 
         // 스턴 && 스턴 제거기
-        public void Stun(Vector2 location)
+        /*public void Stun(Vector2 location)
         {
             foreach (var robber in Server.robbers)
             {
@@ -227,7 +227,7 @@ namespace Server_test
                     // TODO : 게임 구현 후 2턴 만들어서 그거로 스턴 해제 하고 그러기
                 }
             }
-        }
+        }*/
 
         public void StunRemover(string nick)
         {

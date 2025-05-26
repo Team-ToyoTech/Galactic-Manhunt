@@ -89,8 +89,8 @@ namespace Server_test
         // galaxyTravel          은하 탐방 : 17
         // planetTravel          행성 탐방 : 18
         // stun                  스턴 : 19  -- ok
-        // handcuff,             수갑 : 20  
-        // teamIdentify,         팀 식별 : 21
+        // handcuff,             수갑 : 20  -- ok
+        // teamIdentify,         팀 식별 : 21 
 
         // 도둑
         // getFuel,              겟 퓨얼 : 22--ok
@@ -365,20 +365,27 @@ namespace Server_test
         {
 
             Work work = new Work(WorkType.itemUse);
+            // 은하 탐방 --- split문자 : .(마침표)
+            if (msg[1] == "18")
+            {
+                Vector2 locations;
+                string locationMessage = ".";
+
+                foreach (var robber in robbers)
+                {
+                    locations = robber.galaxy.location;
+                    locationMessage += $"{locations.x},{locations.y}.";
+                }
+                
+                clients[clientRealNumber].client.GetStream().Write(Encoding.UTF8.GetBytes(locationMessage + '◊'));
+                clients[clientRealNumber].client.GetStream().Flush();   // 이거 맞나?
+            }
+
             // 스턴
             if (msg[1] == "19")
             {
                 Vector2 locate = clients[clientRealNumber].galaxy.location;
-                foreach (var client in clients)
-                {
-                    if (client.clientNumber != clientRealNumber)
-                    {
-                        if (client.galaxy.Location == locate && client.playerType == Client.PlayerType.robber)
-                        {
-                            client.isMoving = false;
-                        }
-                    }
-                }
+                work.Stun_Robber(locate);
             }
             // 수갑
             if (msg[1] == "20")
