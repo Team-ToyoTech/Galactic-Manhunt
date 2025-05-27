@@ -86,7 +86,7 @@ namespace Server_test
 
         // 경찰 
         // darkUnderTheLamp      등잔 밑이 어둡다 : 16
-        // galaxyTravel          은하 탐방 : 17
+        // galaxyTravel          은하 탐방 : 17 -- ok
         // planetTravel          행성 탐방 : 18
         // stun                  스턴 : 19  -- ok
         // handcuff,             수갑 : 20  -- ok
@@ -317,6 +317,17 @@ namespace Server_test
                         {
                             client.client.GetStream().Write(Encoding.UTF8.GetBytes("10⧫◊"));
                         }
+                    }
+
+                    else if (message[0] == "11")
+                    {
+                        Planet planet = clients[clientRealNumber].planet;
+                        
+                    }
+
+                    else if (message[0] == "14")
+                    {
+                        
                     }
 
                     else if (message[0] == "100")   // 능력 사용
