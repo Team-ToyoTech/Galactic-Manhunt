@@ -325,9 +325,57 @@ namespace Server_test
                         
                     }
 
+
+                    // Q. client가 지도에서 은하 찍고 이동 누르면 그거 좌표만 넘겨주기 ㄱㄴ? split은 ','로 해서
                     else if (message[0] == "14")
                     {
-                        
+                        string[] locate = new string[2];
+                        foreach(var c in message[1])
+                        {
+                            if(c == ',')
+                            {
+                                k++;
+                            }
+                            else
+                            {
+                                locate[k] += c;
+                            }
+                        }
+                        Vector2 locations = new Vector2(0,0); // locate[2] => double로 만들어서 할거임
+                        foreach(var g in galaxyList)
+                        {
+                            if(g.location == locations)
+                            {
+                                clients[clientRealNumber].galaxy = g;
+                                break;
+                            }
+                        }
+                    }
+                    // 항성계 이동 -- 얘도 은하 이동하고 똑같이 가면 좋겠고
+                    else if (message[0] == "15")
+                    {
+                        string[] locate = new string[2];
+                        foreach (var c in message[1])
+                        {
+                            if (c == ',')
+                            {
+                                k++;
+                            }
+                            else
+                            {
+                                locate[k] += c;
+                            }
+                        }
+                        Vector2 locations = new Vector2(0, 0);
+                        foreach (var g in clients[clientRealNumber].galaxy.systems)
+                        {
+                            if(g.location == locations)
+                            {
+                                Work work;
+                                
+                                break;
+                            }
+                        }
                     }
 
                     else if (message[0] == "100")   // 능력 사용

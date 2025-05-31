@@ -72,7 +72,7 @@ namespace Server_test
         }
 
         // 퍼옥사이드하고 하이드라진 이용하는 행성계 간 이동
-        double ReturnFuel(double fuel, Resource fuelType, Vector2 location, PlanetSystem system, int sale)
+        public double ReturnFuel(double fuel, Resource fuelType, Vector2 location, PlanetSystem system, int sale)
         {
             if (fuelType == Resource.epsilon)
             {
